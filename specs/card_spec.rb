@@ -38,8 +38,11 @@ describe Card do
       Card::SUITS.must_include(card.suit)
     end
 
-    it "should throw an error when an invalid value is supplied" do
-      proc { Card.new(:spades, 1) }.must_raise(ArgumentError)
+    bad_values = [1, 11, 0, "p", "1", "2"]     #include edge cases and different data types
+    bad_values.each do |val|
+      it "should throw an error when an invalid value: #{ val } of type #{ val.class } is supplied" do
+      proc { Card.new(:spades, val) }.must_raise(ArgumentError)
+      end
     end
 
   end
